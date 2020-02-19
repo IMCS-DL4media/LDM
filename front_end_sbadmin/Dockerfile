@@ -11,6 +11,9 @@ WORKDIR /app
 # copy both 'package.json' and 'package-lock.json' (if available)
 COPY package*.json ./
 
+RUN npm config set strict-ssl false
+RUN npm config set unsafe-perm true
+
 # install project dependencies
 RUN npm install
 
