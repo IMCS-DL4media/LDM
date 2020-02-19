@@ -2,11 +2,11 @@ import logging_functions as rmtlog
 
 
 def main():
-    #veido jauno run ieks projekta CaptioningLV
+    
     b = rmtlog.login('user1', 'psw1')
     print(b)
 
-    rmtlog.start_run("t9")
+    rmtlog.start_run("t1")
 
     rmtlog.log("test", "rt")
     rmtlog.log("1/0.4","el")
