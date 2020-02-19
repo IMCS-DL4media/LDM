@@ -1,33 +1,30 @@
-# vue-sbtwo
-Is a vue components to sb admin 2, you can see most details on: https://github.com/BlackrockDigital/startbootstrap-sb-admin-2
-bit a bit some components are free, enjoy, test and open yours issues.
-
-![Alt text](ss.png?raw=true "Title")
+# DL Lifecycle Data Management Framework front-end service
 
 ## Project setup
+First of all project specific dependencies have to be installed:
 ```
 npm install
 ```
+After that project front-end service can be run in one of several ways: for production or for deployment (see below).
 
-### Compiles and hot-reloads for development
+### Compile and hot-reload for development:
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Compile and minify for production:
 ```
 npm run build
 ```
 
-### Run your tests
-```
-npm run test
-```
+### .env files 
 
+.env files has been set up and can be used to supply parameters to the front-end service. At the given moment the front-end service will accept only one parameter from .env file - `VUE_APP_SERVER_URL`. 
+`VUE_APP_SERVER_URL` defines the address of a back-end service that gets accessed by a front-end service.   
+
+<!-- 
 ### Lints and fixes files
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+ -->
