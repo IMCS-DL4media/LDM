@@ -35,7 +35,7 @@ def get_human_readable_file_size(file_path):
     if size_in_bytes // (1024*1024*1024) > 0 :
         return str(size_in_bytes // (1024*1024*1024)) + " Gb"
     elif size_in_bytes // (1024*1024) > 0:
-        return str(size_in_bytes // (1024*1024*1024)) + " Mb"
+        return str(size_in_bytes // (1024*1024)) + " Mb"
     elif  size_in_bytes // (1024) > 0:
         return str(size_in_bytes // (1024)) + " Kb"
     
