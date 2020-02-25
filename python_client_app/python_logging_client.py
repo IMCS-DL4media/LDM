@@ -1,5 +1,6 @@
 from python_client_library.logging_functions import login, start_run, log, upload_file, finish_run
 
+
 def main():
     print("Starting main ... ")
     logged_in = login('user1', 'psw1')
