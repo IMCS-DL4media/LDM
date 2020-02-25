@@ -1,19 +1,21 @@
-import logging_functions as rmtlog
-
+from python_client_library.logging_functions import login, start_run, log, upload_file, finish_run
 
 def main():
-    
-    b = rmtlog.login('user1', 'psw1')
-    print(b)
+    print("Starting main ... ")
+    logged_in = login('user1', 'psw1')
+    if logged_in:
+        print("Logged in successfully.")
+    else:
+        print("Login failed.")
 
-    rmtlog.start_run("t1")
+    start_run("t5")
 
-    rmtlog.log("test", "rt")
-    rmtlog.log("1/0.4","el")
+    log("test", "rt")
+    log("1/0.4","el")
 
-    rmtlog.upload_file('weights.txt',".chp")
+    upload_file('./python_client_app/weights.txt',".chp")
 
-    rmtlog.log("0.95", "acc")
+    log("0.95", "acc")
 
     # # with open("silver_labels.txt", "w") as file:
     # #     file.write("cat.jpg, CatS\r\n")
@@ -21,9 +23,9 @@ def main():
     # #
     # # rmtlog.upload_file('silver_labels.txt')
     #
-    # rmtlog.upload_file('python_logging_client.py')
+    upload_file('./python_client_app/python_logging_client.py', "code")
 
-    rmtlog.finish_run()
+    finish_run()
 
 
 main()
