@@ -1,5 +1,8 @@
-import json
+"""
+    Client side functions for working with LDM framework.
+"""
 
+import json
 import requests
 
 #SERVER_URL = "http://127.0.0.1:80"
@@ -9,8 +12,19 @@ CURR_RUN_ID = ""
 TOKEN = ""
 
 
-def log(msg, role_name = "" ):
-    # logs msg to server
+def log(msg, role_name = "" ):    
+    """ Log message msg to server.
+  
+    Parameters: 
+
+    msg (string): Message to log 
+
+    role_name (string): Role name of a message. Role name is optional and can be ommited.
+  
+    Returns: 
+
+    None  
+    """
     print("logging msg to server")
     try:
         print("logging run " + CURR_RUN_ID)
@@ -30,7 +44,21 @@ def log(msg, role_name = "" ):
 
 
 def start_run(project_name, comment = "", git_commit_url = "" ):
-    # starts a new run
+    """ 
+    Start a new run.
+  
+    Parameters: 
+
+    project_name (string): Name of a project this newly started run will belong to.
+
+    comment (string): Comment for a run.  This parameter is optional and can be ommited.
+
+    git_commit_url (string): URL of a git commit representing the state of a code base used in this run. This prm is optional and can be ommited.
+  
+    Returns: 
+
+    None  
+    """
     print("starting run")
 
     global CURR_PROJECT_NAME
@@ -57,6 +85,16 @@ def start_run(project_name, comment = "", git_commit_url = "" ):
 
 
 def finish_run():
+    """ 
+    Finish the current run.
+  
+    Parameters: 
+  
+    Returns: 
+
+    None
+  
+    """    
     # finish current run
     global CURR_RUN_ID
     print("finishing run")
@@ -76,10 +114,26 @@ def finish_run():
 
 
 def upload_file(file_name, role_name = "", comment = "" ):
+    """ 
+    Upload file (file_name) to the logging server and attaches it to the current run.
+  
+    Parameters: 
+
+    file_name (string): File path (on a local machine) of file to be uploaded.
+
+    comment (string): Comment for a file to be uploaded.  This prm is optional and can be ommited.
+
+    role_name (string): Role name for a file to be uploaded. This prm is optional and can be ommited.
+
+  
+    Returns: 
+
+    None
+  
+    """    
     global CURR_RUN_ID
     try:
-        with open(file_name, 'rb') as f:
-            #r = requests.post(SERVER_URL + '/upload_file?run_id=' + CURR_RUN_ID + '&token=' + TOKEN,
+        with open(file_name, 'rb') as f:            
             r = requests.post(SERVER_URL + '/upload_file',
                               params = {
                                   'run_id' : CURR_RUN_ID,
@@ -94,25 +148,41 @@ def upload_file(file_name, role_name = "", comment = "" ):
 
 
 def login(user_id, psw):
-    #try:
-    global TOKEN
-    r = requests.post(
-        SERVER_URL + '/login/', 
-        json={
-            'user_id': user_id, 
-            'user_psw_hash': psw
-        }
-    )
+    """ 
+    Authorize user user_id with password psw.
     
-    if r.status_code == 200:
-        # print(r)
-        # print(r.json())
-        # token = r.json()['token'].split('.')
-        # print(token)
-        TOKEN = r.json()['token']
-        return True
-    else:
-        print('Login failed.')
-        return False
-    #except:
-    #    print("Unknown error in login.")
+    Parameters: 
+    
+    file_name (string): File path (on a local machine) of file to be uploaded.
+
+    comment (string): Comment for a file to be uploaded.  This prm is optional and can be ommited.
+
+    role_name (string): Role name for a file to be uploaded. This prm is optional and can be ommited.
+  
+    Returns: 
+    
+    True in case of success, False otherwise.  
+    """   
+    try:
+        global TOKEN
+        r = requests.post(
+            SERVER_URL + '/login/', 
+            json={
+                'user_id': user_id, 
+                'user_psw_hash': psw
+            }
+        )
+        
+        if r.status_code == 200:
+            # print(r)
+            # print(r.json())
+            # token = r.json()['token'].split('.')
+            # print(token)
+            TOKEN = r.json()['token']
+            return True
+        else:
+            print('Login failed.')
+            return False
+    except:
+        print("Failed to login ... ")
+        print("Unknown error in login.")
