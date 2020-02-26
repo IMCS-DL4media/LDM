@@ -3,7 +3,7 @@ DL Lifecycle Data Management Framework.
 A framework for capturing all relevant events and artefacts during the DL training process, 
 as well as a web interface for inspecting them.
 
-The most important features of our framework are:
+The most important features of our framework are abilities:
  - to create a new experiment - a project
  - to add training data sets (training data set, test data set) to this project
  - to record the progress of an ongoing experiment (create log entries and save experiment run metadata)
