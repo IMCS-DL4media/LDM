@@ -1,6 +1,6 @@
 # logging_functions
 
-Client side functions for working with LDM framework.
+Client side functions (**Core library**) for working with LDM framework.
 
 ## log
 ```python
