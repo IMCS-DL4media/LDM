@@ -6,7 +6,10 @@ import json
 import requests
 
 #SERVER_URL = "http://127.0.0.1:80"
-SERVER_URL = "http://localhost:5000"
+
+DEFAULT_SERVER_URL = "http://localhost:5000"
+
+SERVER_URL = DEFAULT_SERVER_URL
 CURR_PROJECT_NAME = ""
 CURR_RUN_ID = ""
 TOKEN = ""
@@ -147,17 +150,17 @@ def upload_file(file_name, role_name = "", comment = "" ):
         print("Unknown error in upload_file.")
 
 
-def login(user_id, psw):
+def login(user_id, psw, server_url_prm = DEFAULT_SERVER_URL ):
     """ 
-    Authorize user user_id with password psw.
+    Authorize user user_id with password psw on server server_url_prm.
     
     Parameters: 
     
-    file_name (string): File path (on a local machine) of file to be uploaded.
+    user_id (string): User ID.
 
-    comment (string): Comment for a file to be uploaded.  This prm is optional and can be ommited.
+    psw (string): User password.
 
-    role_name (string): Role name for a file to be uploaded. This prm is optional and can be ommited.
+    server_url_prm (URL): URL of an instance of LDM framework to connect to. All subsequent calls to LDM framework functions will be directed to this URL. This prm is optional and can be ommited, in this case default URL of "http://localhost:5000" will be used .
   
     Returns: 
     
@@ -165,6 +168,10 @@ def login(user_id, psw):
     """   
     try:
         global TOKEN
+        global SERVER_URL
+        
+        SERVER_URL = server_url_prm
+
         r = requests.post(
             SERVER_URL + '/login/', 
             json={

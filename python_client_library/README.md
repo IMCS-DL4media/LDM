@@ -1,6 +1,8 @@
+
 # logging_functions
 
 Client side functions for working with LDM framework.
+
 
 ## log
 ```python
@@ -17,6 +19,7 @@ role_name (string): Role name of a message. Role name is optional and can be omm
 Returns:
 
 None
+
 
 ## start_run
 ```python
@@ -37,6 +40,7 @@ Returns:
 
 None
 
+
 ## finish_run
 ```python
 finish_run()
@@ -49,6 +53,7 @@ Parameters:
 Returns:
 
 None
+
 
 
 ## upload_file
@@ -72,20 +77,21 @@ Returns:
 None
 
 
+
 ## login
 ```python
-login(user_id, psw)
+login(user_id, psw, server_url_prm='http://localhost:5000')
 ```
 
-Authorize user user_id with password psw.
+Authorize user user_id with password psw on server server_url_prm.
 
 Parameters:
 
-file_name (string): File path (on a local machine) of file to be uploaded.
+user_id (string): User ID.
 
-comment (string): Comment for a file to be uploaded.  This prm is optional and can be ommited.
+psw (string): User password.
 
-role_name (string): Role name for a file to be uploaded. This prm is optional and can be ommited.
+server_url_prm (URL): URL of an instance of LDM framework to connect to. All subsequent calls to LDM framework functions will be directed to this URL. This prm is optional and can be ommited, in this case default URL of "http://localhost:5000" will be used .
 
 Returns:
 
