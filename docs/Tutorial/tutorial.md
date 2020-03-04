@@ -43,9 +43,36 @@ Project page consists of 3 parts:
  
 Currently, list of runs is empty – to see something there we need to create a run. Runs are created by running python programs, containing calls of LDM framework  [logging functions](./../../python_client_library/README.md).  An example of this kind of program is present in [python_logging_client.py](../../python_client_app/python_logging_client.py) . Let us take a look at this simple python program – it deliberately does not have any machine learning code, just calls of LDM logging functions.
 
-Code from python_logging_client.py:
+Code from [python_logging_client.py](https://github.com/IMCS-DL4media/LDM/blob/bb68a1b3f75fb306914a8cd38e0351f4fe7e7c88/python_client_app/python_logging_client.py#L24):
 
-https://github.com/IMCS-DL4media/LDM/blob/6d6550894cf0b8018550182d4db2082ebc3eaed5/python_client_app/python_logging_client.py#L27
+```Python
+from python_client_library.logging_functions import login, start_run, log, upload_file, finish_run
+
+
+def main():
+    print("Starting main ... ")
+    logged_in = login('user1', 'psw1')
+    if logged_in:
+        print("Logged in successfully.")
+    else:
+        print("Login failed.")
+        exit()
+
+    start_run("t1")
+
+    log("starting program execution", "test")
+    
+    log("test msg 1", "test")
+    
+    upload_file('./python_client_app/weights.txt',".chp")
+    upload_file('./python_client_app/python_logging_client.py', "code")
+
+    log("finishing program execution", "test")
+    finish_run()
+
+
+main()
+```
 
 We start by importing necessary LDM framework functions - `login, start_run, log, upload_file, finish_run` (line 1). After that we login to LDM framework isntance by providing default user/psw (line 6). Actually, `login` function has an optional third parameter – server_url. All subsequent LDM framework calls are directed to this url. If it is omitted (as it is in our case) all subsequent LDM framework calls are directed to a default server URL which is "http://localhost:5000". 
 
@@ -70,10 +97,14 @@ If we click on the link (ID of a new created run) we will go to page showing run
 
 ![alt text](./run_properties.png "Run properties")
 
-Here we can see 3 panes: 
-- run properties
+Generally in run properties page we can see 3 panes: 
+- essential run properties
 - list of messages, logged during this run
 - list of files uploaded in this run – by clicking on a link containing file name we can download a file
+
+Concerning our particular run we can see that during it 3 messages were logged and 2 files were uploaded.
+
+
 
 
  
