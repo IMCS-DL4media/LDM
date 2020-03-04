@@ -2,13 +2,29 @@
 DL Lifecycle Data Management Framework.
 A framework for capturing all relevant events and artefacts during the DL training process, 
 as well as a web interface for inspecting them.
-
-The most important features of our framework are abilities:
- - to create a new experiment - a project
- - to add training data sets (training data set, test data set) to this project
- - to record the progress of an ongoing experiment (create log entries and save experiment run metadata)
- - to save files used in the experiment
  
+##	DL Lifecycle Data Management Framework: General Structure
+
+The general structure of our DL Lifecycle Data Management Framework (LDM framework) is presented in a figure below. 
+
+![LDM framework](./LDM_framework.png "General structure of LDM framework")
+
+LDM framework consists of two components:
+1.	Core platform, which includes:
+    - Core tool which works on Data Server 
+    - Core library which is placed on Workstation. Detailed description of this library can be found [here](./python_client_library/README.md). 
+
+  
+    The most important features of the Core platform are:
+    - to create a new project (ordered set of runs)
+    - to add training data sets (training data set, test data set) to this project
+    - to create a run belonging to the project
+    - to record the progress of an ongoing run (create log entries and save run metadata)
+    - to save files used in the run
+
+2.	Core extension mechanism which in fact ensures the development of DSL tool for the given DL lifecycle data management. Core extension mechanism is still under development, therefore it is not shown in this repo yet.
+
+
 ## How to run with docker-compose:
  
  Probably, the easiest way to run LDM framework locally is to use docker-compose and provided docker-compose.yml file.
