@@ -8,24 +8,18 @@ def main():
         print("Logged in successfully.")
     else:
         print("Login failed.")
+        exit()
 
-    start_run("t5")
+    start_run("t1")
 
-    log("test", "rt")
-    log("1/0.4","el")
-
+    log("starting program execution", "test")
+    
+    log("test msg 1", "test")
+    
     upload_file('./python_client_app/weights.txt',".chp")
-
-    log("0.95", "acc")
-
-    # # with open("silver_labels.txt", "w") as file:
-    # #     file.write("cat.jpg, CatS\r\n")
-    # #     file.write("lion.jpg, BigCatS\r\n")
-    # #
-    # # rmtlog.upload_file('silver_labels.txt')
-    #
     upload_file('./python_client_app/python_logging_client.py', "code")
 
+    log("finishing program execution", "test")
     finish_run()
 
 
