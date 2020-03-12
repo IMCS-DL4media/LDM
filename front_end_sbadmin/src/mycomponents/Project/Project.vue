@@ -331,8 +331,8 @@
 					<td>{{ run.finish_time }}</td>								
 					<!-- <td>97</td> -->
 					
-					<td> </td>
-					<td> </td>
+					<td> {{run.remote_address}}</td>
+					<td> user1 </td>
 					<td> <a :href="run.git_commit_url"> {{run.git_commit_url_shortened}} </a> </td>
 				</tr>
 				

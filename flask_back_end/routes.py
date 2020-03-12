@@ -153,6 +153,7 @@ def hello_world():
 @app.route('/start_run/<string:name>')
 @require_token
 def start_run(name):
+    print("Recieved request from " + str(request.remote_addr) )
     #find proj by name
     proj = mongo.db.projects.find_one({'name': name})
     # create run tied to this proj
@@ -170,7 +171,8 @@ def start_run(name):
         run = mongo.db.runs.insert_one({'project_id': proj_id,
                                         'comment' : comment,
                                         'start_time': datetime.datetime.now(),
-                                        'git_commit_url':git_commit_url
+                                        'git_commit_url':git_commit_url,
+                                        'remote_address' : request.remote_addr
                                         })
         run_id = run.inserted_id
         
@@ -316,12 +318,18 @@ def get_runs(project_id):
             else:
                 git_commit_url_shortened = git_commit_url
 
+        remote_address = ""
+        if 'remote_address' in run:
+            remote_address = run['remote_address']
+
+
         output.append({'id': str(run['_id']),
                        'start_time': run['start_time'],
                        'finish_time': run['finish_time'] if 'finish_time' in run else "",
                        'comment': comment,
                        'git_commit_url' : git_commit_url,
-                       'git_commit_url_shortened' : git_commit_url_shortened
+                       'git_commit_url_shortened' : git_commit_url_shortened,
+                       'remote_address' : remote_address
                        })
 
     #print(output)
