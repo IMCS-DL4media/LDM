@@ -9,6 +9,7 @@ export default {
             runs:[],
             description:"",
             name:"",
+            created_at:"",
             training_data_download_link:"",
             testing_data_download_link:"",
             error:null
@@ -40,6 +41,7 @@ export default {
                 this.testing_file_size = json.testing_file_size
                 this.name = json.name
                 this.description = json.description
+                this.created_at = json.created_at
             })
             return (null,runs);
         },

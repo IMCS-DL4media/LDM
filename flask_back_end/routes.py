@@ -343,10 +343,13 @@ def get_runs(project_id):
     project =  mongo.db.projects.find_one({'_id': ObjectId(project_id)})
     proj_name = ""
     proj_descr = ""
+    proj_creation_time = ""
     if project is not None:
         proj_name = project['name']
         if 'description' in project:
             proj_descr = project['description']
+        if 'created_at' in project:
+            proj_creation_time = project['created_at']
 
     response = jsonify({'runs': output,
                         'training_data_download_link': training_data_file_path,
@@ -356,7 +359,8 @@ def get_runs(project_id):
                         'testing_file_size': 
                             get_human_readable_file_size( os.path.join(get_app_root_dir(), 'Projects', project_id, 'Data', 'Test', testing_data_file_path)),
                         'name' : proj_name,
-                        'description' : proj_descr
+                        'description' : proj_descr,
+                        'created_at' : proj_creation_time
                         })
     # https://stackoverflow.com/questions/26980713/solve-cross-origin-resource-sharing-with-flask
     response.headers.add('Access-Control-Allow-Origin', '*')

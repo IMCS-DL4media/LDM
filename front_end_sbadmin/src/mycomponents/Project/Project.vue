@@ -168,7 +168,7 @@
 							</div>
 							<div class="form-row">
 								<label class="col-sm-1 text-right font-weight-bold">Created on : </label>
-								<label class="col-sm-4">30 01 2020</label>							
+								<label class="col-sm-4">{{created_at}}</label>							
 							</div>
 							<div class="form-row">
 								<label class="col-sm-1 text-right font-weight-bold">Owner : </label>
