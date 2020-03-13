@@ -21,27 +21,27 @@
 					-->
 					<form class="form-horizontal">
 						<div class="form-row">
-							<label class="col-sm-1 text-right font-weight-bold">Run ID : </label>
+							<label class="col-sm-2 text-right font-weight-bold">Run ID : </label>
 							<label class="col-sm-4">{{run_id}}</label>							
 						</div>
 						<div class="form-row">
-							<label class="col-sm-1 text-right font-weight-bold">Run start time : </label>
+							<label class="col-sm-2 text-right font-weight-bold">Run start time : </label>
 							<label class="col-sm-4">{{run.start_time}}</label>							
 						</div>
 						<div class="form-row">
-							<label class="col-sm-1 text-right font-weight-bold">Run finish time : </label>
+							<label class="col-sm-2 text-right font-weight-bold">Run finish time : </label>
 							<label class="col-sm-4">{{run.finish_time}}</label>							
 						</div>
 						<div class="form-row">
-							<label class="col-sm-1 text-right font-weight-bold">Comment : </label>
+							<label class="col-sm-2 text-right font-weight-bold">Comment : </label>
 							<label class="col-sm-4">{{run.comment}}</label>							
 						</div>
 						<div class="form-row">
-							<label class="col-sm-1 text-right font-weight-bold">Commit URL : </label>
+							<label class="col-sm-2 text-right font-weight-bold">Commit URL : </label>
 							<label class="col-sm-9"><a :href="run.git_commit_url">{{run.git_commit_url}}</a></label>							
 						</div>
 						<div class="form-row">
-							<label class="col-sm-1 text-right font-weight-bold">Run author : </label>
+							<label class="col-sm-2 text-right font-weight-bold">Run author : </label>
 							<label class="col-sm-4"> user1 </label>							
 						</div>
 					</form>
