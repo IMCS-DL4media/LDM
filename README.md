@@ -42,4 +42,4 @@ If the execution of above mentioned commands is successful - the framework is re
  
 ## Tutorial:
  
- [LDM framework quick start](./docs/Tutorial/tutorial.md)
+ [LDM framework quick start](./docs/Tutorial/README.md)
