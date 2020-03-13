@@ -69,8 +69,7 @@ export default {
         },
 
         uploadTestDataSetClicked:function(e){
-			let fileToUpload = this.$refs.fileInputRef.files[0];
-			  
+			let fileToUpload = this.$refs.fileInputRef.files[0];		
 			let formData = new FormData();
 
             formData.append('project_id', this.project_id); 
@@ -100,7 +99,6 @@ export default {
         
         uploadTrainingDataSetClicked:function(e){
 			let fileToUpload = this.$refs.train_data_fileInputRef.files[0];
-			  
 			let formData = new FormData();
 
             formData.append('project_id', this.project_id); 

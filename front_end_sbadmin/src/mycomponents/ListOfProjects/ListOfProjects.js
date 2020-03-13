@@ -25,16 +25,16 @@ export default {
 		}
 	},
 
-	  created(){
+	created(){
     
 		//console.log( process );
 		//console.log( process.env );
 		//console.log( process.env.VUE_APP_SERVER_URL );
-  		//console.log("in created this", this)
+		//console.log("in created this", this)
 
 
 		//fetch( 'http://' + process.env.VUE_APP_SERVER_URL + '/get_projects?user=1')
-	    //SERVER_URL()
+		//SERVER_URL()
 		//fetch( 'http://localhost:5000/get_projects?user=1')
 		this.loadProjects();
 	},
@@ -44,19 +44,19 @@ export default {
 		loadProjects(){
 			console.log(mymixin.SERVER_URL);
 			fetch( this.SERVER_URL() + 'get_projects?user=1')
-			  .then(function(response) {
-			  if (!response.ok) {
-				  throw Error(response.statusText);
-			  }
-			  return response;
+				.then(function(response) {
+				if (!response.ok) {
+					throw Error(response.statusText);
+				}
+				return response;
 			})
-			  .then(response=>response.json())
-			  .then(json => {
+			.then(response=>response.json())
+			.then(json => {
 					console.log("in json ", json)
 					this.projects = json.projects
-			  }).catch(function(error) {
+			}).catch(function(error) {
 				console.log(error);
-			  });
+			});
 		},
 
 		// createNewProjectClicked() {
@@ -110,7 +110,7 @@ export default {
 				.then(response => {					
 					console.log(response.body)				
 					$('#alerts_success').show();
-					//list of projects has to be relaoded , because we just created a new one
+					//list of projects has to be relaoded, because we just created a new one
 					this.loadProjects();
 				},
 				response => {						
