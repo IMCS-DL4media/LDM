@@ -36,24 +36,29 @@ export default {
 		//fetch( 'http://' + process.env.VUE_APP_SERVER_URL + '/get_projects?user=1')
 	    //SERVER_URL()
 		//fetch( 'http://localhost:5000/get_projects?user=1')
-		console.log(mymixin.SERVER_URL);
-		fetch( this.SERVER_URL() + 'get_projects?user=1')
-      	.then(function(response) {
-          if (!response.ok) {
-              throw Error(response.statusText);
-          }
-          return response;
-        })
-      	.then(response=>response.json())
-      	.then(json => {
-				console.log("in json ", json)
-				this.projects = json.projects
-      	}).catch(function(error) {
-        	console.log(error);
-      	});
+		this.loadProjects();
 	},
 
 	methods: {
+
+		loadProjects(){
+			console.log(mymixin.SERVER_URL);
+			fetch( this.SERVER_URL() + 'get_projects?user=1')
+			  .then(function(response) {
+			  if (!response.ok) {
+				  throw Error(response.statusText);
+			  }
+			  return response;
+			})
+			  .then(response=>response.json())
+			  .then(json => {
+					console.log("in json ", json)
+					this.projects = json.projects
+			  }).catch(function(error) {
+				console.log(error);
+			  });
+		},
+
 		// createNewProjectClicked() {
 			// console.log("in create new project", $("#myModal").length)
 
@@ -105,6 +110,8 @@ export default {
 				.then(response => {					
 					console.log(response.body)				
 					$('#alerts_success').show();
+					//list of projects has to be relaoded , because we just created a new one
+					this.loadProjects();
 				},
 				response => {						
 					console.log(response.body)				
