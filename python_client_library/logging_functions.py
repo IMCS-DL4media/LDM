@@ -4,6 +4,8 @@
 
 import json
 import requests
+import shutil
+import sys
 
 #SERVER_URL = "http://127.0.0.1:80"
 
@@ -193,3 +195,67 @@ def login(user_id, psw, server_url_prm = DEFAULT_SERVER_URL ):
     except:
         print("Failed to login ... ")
         print("Unknown error in login.")
+
+
+def get_local_filename_from_url(url):
+    local_filename = url.split('/')[-1]    
+    # print( local_filename )
+    quest_mark_ind = local_filename.find("?")
+    if quest_mark_ind != -1:
+        local_filename = local_filename[0:quest_mark_ind]
+    # print(local_filename)
+    return local_filename
+
+
+def download_file_as_stream(url):
+    """ 
+    Download a file located at url and store it in a current dir.
+    
+    Parameters: 
+    
+    url (string): URL of file to download.
+
+    Returns: 
+    
+    Name of a file downloaded.  
+    """   
+    local_filename = ""
+    try:
+    # https://stackoverflow.com/questions/16694907/download-large-file-in-python-with-requests
+    # see second answer
+
+        local_filename = get_local_filename_from_url( url )
+        with requests.get(url, stream=True) as r:
+            with open(local_filename, 'wb') as f:
+                # https://github.com/psf/requests/issues/2155#issuecomment-287628933
+                r.raw.decode_content = True
+                shutil.copyfileobj(r.raw, f)
+                
+    except:
+        print("Failed to download file " + url)
+        print("Unknown error in download_file as stream.")
+
+    return local_filename
+
+
+def download_file_naive(url):
+    local_filename = get_local_filename_from_url( url )
+    r = requests.get(url, allow_redirects=True)
+    
+    with open(local_filename, 'wb') as f:
+        f.write(r.content)
+    return local_filename
+
+
+def download_file_by_chunks(url):
+    # https://stackoverflow.com/questions/16694907/download-large-file-in-python-with-requests
+    local_filename = get_local_filename_from_url( url )
+    # NOTE the stream=True parameter below
+    with requests.get(url, stream=True) as r:
+        r.raise_for_status()
+        with open(local_filename, 'wb') as f:
+            for chunk in r.iter_content(chunk_size=8192): 
+                if chunk: # filter out keep-alive new chunks
+                    f.write(chunk)
+                    # f.flush()
+    return local_filename
