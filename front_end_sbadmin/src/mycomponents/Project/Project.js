@@ -55,7 +55,7 @@ export default {
             
             this.loading = false
             if (res.err) {
-                this.error = err.toString()
+                this.error = res.err.toString()
             } else {
                 this.runs = res.runs
             }

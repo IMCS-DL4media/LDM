@@ -55,7 +55,7 @@
               <h6 class="m-0 font-weight-bold text-primary">Logged messages:</h6>
             </div>
 			
-		 <div class = "card-body">
+		<div class = "card-body">
 		
 		
 		<!-- <p>List of logged messages:</p> -->

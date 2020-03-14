@@ -1,20 +1,20 @@
 <template>
- 	<div>
+	<div>
 		
 		<div id="alerts_fail"  class="alert alert-danger collapse" role="alert">
 			Project creation failed.
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    			<span aria-hidden="true">&times;</span>
-  			</button>
+				<span aria-hidden="true">&times;</span>
+			</button>
 		</div>
 		
 		<div id="alerts_success" class="alert alert-success collapse" role="alert">
 			Project created successfully.
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    			<span aria-hidden="true">&times;</span>
-  			</button>
+				<span aria-hidden="true">&times;</span>
+			</button>
 		</div>
-<!-- The Modal -->
+		<!-- The Modal -->
 		<div class="modal" id="myModal">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -134,7 +134,7 @@
 		<p>Project ID : {{ project_id }} </p>
 		<p>Project name : {{name}} </p>
 		<p>Project description : {{description}} </p>
-		 -->
+		-->
 		<!-- 
 			<button disabled> Data </button> 
 			<button disabled> Runs </button> <br>
@@ -191,7 +191,7 @@
 
 		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"  
 			v-if="!(training_data_download_link != null && training_data_download_link.length > 0)" >Upload test data ...</button>
-		 -->
+		-->
 
 		<div class = "row">
 							<div class = "card shadow mb-4 col ml-2 mr-2"> 

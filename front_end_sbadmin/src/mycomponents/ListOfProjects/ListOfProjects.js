@@ -92,7 +92,6 @@ export default {
 			$('#alerts_fail').hide();
 
 			//let fileToUpload = this.$refs.fileInputRef.files[0];
-			  
 			let formData = new FormData();
 			
 			formData.append('project_name', document.getElementById("project_name_id").value);

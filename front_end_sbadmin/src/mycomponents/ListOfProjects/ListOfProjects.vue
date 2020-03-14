@@ -1,8 +1,6 @@
-<template>
-	
+<template>	
 	<div>
-		
-    
+
     <!-- 
       <ul >
         <li v-for="p in $parent.projects">{{p}}</li>
@@ -15,103 +13,108 @@
 		<div id="alerts_fail"  class="alert alert-danger collapse" role="alert">
 			Project creation failed.
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    			<span aria-hidden="true">&times;</span>
-  			</button>
+				<span aria-hidden="true">&times;</span>
+			</button>
 		</div>
 		
 		<div id="alerts_success" class="alert alert-success collapse" role="alert">
 			Project created successfully.
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    			<span aria-hidden="true">&times;</span>
-  			</button>
+				<span aria-hidden="true">&times;</span>
+			</button>
 		</div>
 
 		<!-- The Modal -->
 		<div class="modal" id="myModal">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
+			<div class="modal-dialog">
+				<div class="modal-content">
 
-		      <!-- Modal Header -->
-		      <div class="modal-header">
-		        <h4 class="modal-title">Create new project ... </h4>
-		        <button type="button" class="close" data-dismiss="modal">&times;</button>
-		      </div>
+					<!-- Modal Header -->
+					<div class="modal-header">
+							<h4 class="modal-title">Create new project ... </h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
 
-		      <!-- Modal body -->
-		      <div class="modal-body">
-		        				
-					<div class="form-group">
-						<label for="exampleInputEmail1">Project name:</label>
-						<input type="text" class="form-control" id="project_name_id" aria-describedby="emailHelp" placeholder="Enter project name ... ">
+					<!-- Modal body -->
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="exampleInputEmail1">Project name:</label>
+							<input type="text" class="form-control" id="project_name_id" aria-describedby="emailHelp" placeholder="Enter project name ... ">
+							
+						</div>
+
+						<div class="form-group">
+							<label for="exampleInputEmail1">Project type:</label>
+							<select class="form-control" id = "project_type" disabled >
+								<option value = "ImgClassification"> Image Classification</option>
+								<option value = "ImgCaptioning"> Image Captioning</option>
+							</select>
+							
+						</div>
+										
+						<div class="form-group">
+							<label for="exampleInputEmail1">Project description:</label>
+							<input type="text" class="form-control" id="project_description_id" aria-describedby="emailHelp" placeholder="Enter project description ... ">
+							
+						</div>
+
+						<!-- 
+						<div class="form-group" >
+							<label for="exampleInputEmail1">Training data file:</label>
+							<div class="file-loading">
+								<input id="training_file_input_id" name="training_file_input" type="file" ref="fileInputRef" >
+							</div>	
+						</div> 
+						-->
 						
 					</div>
 
-					<div class="form-group">
-						<label for="exampleInputEmail1">Project type:</label>
-						<select class="form-control" id = "project_type" disabled >
-							<option value = "ImgClassification"> Image Classification</option>
-							<option value = "ImgCaptioning"> Image Captioning</option>
-						</select>
-						
-					</div>
-									
-					<div class="form-group">
-						<label for="exampleInputEmail1">Project description:</label>
-						<input type="text" class="form-control" id="project_description_id" aria-describedby="emailHelp" placeholder="Enter project description ... ">
-						
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal" @click="createNewProjectClicked">Create</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
 
-					<!-- 
-					<div class="form-group" >
-						<label for="exampleInputEmail1">Training data file:</label>
-						<div class="file-loading">
-							<input id="training_file_input_id" name="training_file_input" type="file" ref="fileInputRef" >
-						</div>	
-					</div> 
-					-->
-					
-		      </div>
-
-		      <!-- Modal footer -->
-		      <div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal" @click="createNewProjectClicked">Create</button>
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		      </div>
-
-		    </div>
-		  </div>
+				</div>
+			</div>
 		</div>
 
-  			<div class="row">
-				<!-- {{projects}} -->
-				<!-- Earnings (Monthly) Card Example -->
-				<div class="col-xl-3 col-md-6 mb-4"  v-for="p in projects">
+		<div class="row">
+			<!-- {{projects}} -->
+			<!-- Earnings (Monthly) Card Example -->
+			<div class="col-xl-3 col-md-6 mb-4"  v-for="p in projects">
 				<div class="card border-left-primary shadow h-100 py-2">
 					<div class="card-body">
-					<div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-						
-						<router-link :to="'/project/' + p.id">
-							<div class="h5 mb-0 font-weight-bold text-gray-800"> Project name : {{ p.name }}</div>
-						</router-link>
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+							
+								<router-link :to="'/project/' + p.id">
+									<div class="h5 mb-0 font-weight-bold text-gray-800"> 
+										Project name : {{ p.name }}
+									</div>
+								</router-link>
 
-						<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Project author : user1</div>                      
-						<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Last updated on : {{p.last_update_time}}</div>
-						<div class="text-xs font-weight-bold text-primary text-uppercase mb-1"> Num of runs : {{p.num_of_runs}}</div>
-						
+								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+									Project author : user1
+								</div>
+								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+									Last updated on : {{p.last_update_time}}
+								</div>
+								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1"> 
+									Num of runs : {{p.num_of_runs}}
+								</div>
+							
+							</div>
+							<!-- <div class="col-auto">
+							<i class="fas fa-calendar fa-2x text-gray-300"></i>
+							
+							</div> -->
 						</div>
-						<!-- <div class="col-auto">
-						<i class="fas fa-calendar fa-2x text-gray-300"></i>
-						
-						</div> -->
-					</div>
 					</div>
 				</div>
-				</div>
-		
 			</div>
-    
-  	</div>
+		</div>
+	</div>
 	
 </template>
 
