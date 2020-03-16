@@ -12,9 +12,9 @@ Vue.use(VueResource);
 
 export default {
 	name: "Projects",
-	data: {
-		showModal: false,
-	},
+	// data: {
+	// 	showModal: false,
+	// },
 	props: ['user_id'],
 	components: {},
 	mixins:[mymixin],
