@@ -82,13 +82,13 @@
 					</tr>
 				</tfoot> -->
 				<tbody>
-					<tr v-for="(log, ind) in run.logs">								
-						<td>{{ ind }}</td>								
-						<td> {{log.role_name}} </td>
-						<td>{{log.id}}</td>
+					<tr v-for="(log, ind) in run.logs" :key="log.id">
+						<td>{{ ind }}</td>
+						<td>{{ log.role_name }} </td>
+						<td>{{ log.id }}</td>
 						<td>{{ log.msg }}</td>
-						<td>{{ log.logged_on }}</td>								
-					</tr>							
+						<td>{{ log.logged_on }}</td>
+					</tr>
 				</tbody>
 			</table>
 
@@ -124,13 +124,13 @@
 					</tr>
 				</tfoot> -->
 				<tbody>
-					<tr v-for="(file, ind) in run.files">								
+					<tr v-for="(file, ind) in run.files" :key="file.file_name">
 						<td>{{ind}}</td>
 						<td> {{file.role_name}} </td>
 						<td> <a :href= " SERVER_URL() + 'get_file/' + file.file_name + '?run_id=' + run_id" >{{file.file_name}}</a> </td>
 						<td> {{file.upload_time}} </td>
 						<td> {{file.comment}} </td>
-					</tr>							
+					</tr>
 				</tbody>
 			</table>
 		</div>

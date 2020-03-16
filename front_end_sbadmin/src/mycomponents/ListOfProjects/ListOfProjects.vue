@@ -82,7 +82,7 @@
 		<div class="row">
 			<!-- {{projects}} -->
 			<!-- Earnings (Monthly) Card Example -->
-			<div class="col-xl-3 col-md-6 mb-4"  v-for="p in projects">
+			<div class="col-xl-3 col-md-6 mb-4"  v-for="p in projects" :key="p.id">
 				<div class="card border-left-primary shadow h-100 py-2">
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
