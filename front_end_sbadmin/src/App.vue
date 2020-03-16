@@ -90,15 +90,15 @@
 </template>
 
 <script>
-import ListOfProjects from './mycomponents/ListOfProjects/ListOfProjects.vue'
-import SideBar from './mycomponents/SideBar.vue'
+//import ListOfProjects from './mycomponents/ListOfProjects/ListOfProjects.vue'
+//import SideBar from './mycomponents/SideBar.vue'
 import TopBar from './mycomponents/TopBar.vue'
 
 export default {
   name: 'app',
   components: {
-    ListOfProjects,
-    SideBar,
+    //ListOfProjects,
+    //SideBar,
     TopBar
   }
   

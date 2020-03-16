@@ -74,7 +74,7 @@ export default {
 			// }
 			// router.push("/addproject/" + user_id_prm )
 		// }
-		createNewProjectClicked:function(e) {
+		createNewProjectClicked:function() {
 			// console.log("in create new project", $("#myModal").length)
 			// console.log($("#project_name_id").value);
 			// console.log($("#training_file_input_id").value);

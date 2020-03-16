@@ -68,7 +68,7 @@ export default {
             return str;
         },
 
-        uploadTestDataSetClicked:function(e){
+        uploadTestDataSetClicked:function(){
 			let fileToUpload = this.$refs.fileInputRef.files[0];		
 			let formData = new FormData();
 
@@ -97,7 +97,7 @@ export default {
 			return;
         },
         
-        uploadTrainingDataSetClicked:function(e){
+        uploadTrainingDataSetClicked:function(){
 			let fileToUpload = this.$refs.train_data_fileInputRef.files[0];
 			let formData = new FormData();
 

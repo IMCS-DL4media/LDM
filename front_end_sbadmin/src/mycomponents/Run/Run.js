@@ -22,14 +22,13 @@ export default{
 	},		
 	methods: {
 
-		getRunDetails( run_id ){		
+		getRunDetails( run_id ){
 			console.log(run_id);
-			var loc_run = 
-				fetch( this.SERVER_URL()  + 'get_run/'+run_id)
-				.then(response=>response.json())
-				.then(json => {
-					this.run = json.run
-				})
+			fetch( this.SERVER_URL()  + 'get_run/'+run_id)
+			.then(response=>response.json())
+			.then(json => {
+				this.run = json.run
+			})
 			return this.run;
 		},
 		
