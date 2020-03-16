@@ -82,7 +82,7 @@
 					</tr>
 				</tfoot> -->
 				<tbody>
-					<tr v-for="log, ind in run.logs">								
+					<tr v-for="(log, ind) in run.logs">								
 						<td>{{ ind }}</td>								
 						<td> {{log.role_name}} </td>
 						<td>{{log.id}}</td>
@@ -124,7 +124,7 @@
 					</tr>
 				</tfoot> -->
 				<tbody>
-					<tr v-for="file, ind in run.files">								
+					<tr v-for="(file, ind) in run.files">								
 						<td>{{ind}}</td>
 						<td> {{file.role_name}} </td>
 						<td> <a :href= " SERVER_URL() + 'get_file/' + file.file_name + '?run_id=' + run_id" >{{file.file_name}}</a> </td>

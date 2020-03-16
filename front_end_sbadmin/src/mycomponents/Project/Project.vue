@@ -322,7 +322,7 @@
 				</tr>
 			</tfoot>
 			<tbody>
-				<tr v-for="run, ind in runs">								
+				<tr v-for="(run, ind) in runs">								
 					<td>{{ ind }}</td>
 					
 					<td><router-link :to="'/run/' + run.id" >{{run.id}}</router-link></td>
