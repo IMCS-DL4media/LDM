@@ -1,0 +1,16 @@
+
+.bbox {
+    float: left;
+    position: absolute;
+    background-color: transparent;
+    border-color: blue;
+    border-style: solid;
+}
+
+.gold-bbox {
+    float: left;
+    position: absolute;
+    background-color: transparent;
+    border-color: red;
+    border-style: solid;
+}
