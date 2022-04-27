@@ -4,7 +4,7 @@ services:
     image: mongo
     restart: always
     volumes:
-      - ./data/:/data/db 
+      - ./mongo/:/data/db 
     environment:
       - "TZ=Europe/Riga"
 
@@ -14,7 +14,7 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - ./mongo:/app/uploads
+      - ./data:/app/uploads
     environment:
       - "TZ=Europe/Riga"
     depends_on:
