@@ -1,4 +1,5 @@
-import os, datetime, zipfile, time, json, shutil, uuid
+import os, datetime, zipfile, time, json, shutil, uuid, csv
+from os.path import basename
 
 # import argparse, sys, os, json, time, datetime, math, re, uuid, zipfile
 
@@ -66,6 +67,23 @@ class Datasets():
 					"mp4": "video",
 				}
 
+
+		self.project_dataset_map = {"ObjectDetection": {"data_file": "data.json",
+												"file_type": "json",
+											},
+
+							"ImageClassification": {"data_file": "labels.txt",
+													"file_type": "txt",
+												},
+
+							"ImageCaptioning": {"data_file": "labels.txt",
+												"file_type": "txt",
+											},
+
+							"Media2Text": {"data_file": "data.json",
+											"file_type": "json",
+										},
+						}
 
 # this is tmp cleaning
 		# self.mongo.db.predefined_datasets.delete_many({})
@@ -448,8 +466,6 @@ class Datasets():
 																	{"$group": {"_id": "$gold", "count": {"$sum": 1}}}])
 
 
-			print ("images_out ", images_out)
-
 			return make_response(dumps({"media": images_out[:self.data_limit],
 										"labels": categories_out,
 										"labelsCount": labels_count,
@@ -531,31 +547,105 @@ class Datasets():
 
 
 	def get_training_set(self, project_id):
-		return self.get_dataset(project_id, "Train")
+		return self.get_dataset(project_id, "All")
 
 
 	def get_testing_set(self, project_id):
-		return self.get_dataset(project_id, "Test")
+		return self.get_dataset(project_id, "All")
 
 
 	def get_validation_set(self, project_id):
-		return self.get_dataset(project_id, "Validation")
+		return self.get_dataset(project_id, "All")
 
 
-	def get_dataset(self, project_id, dataset_type):
-		dataset_type = "All"
-		dir_path = os.path.join(u.get_app_root_dir(), 'Projects', project_id, 'Unzipped_data', dataset_type)
-		filePaths = self.retrieve_file_paths(dir_path)
+	def get_dataset(self, project_id, dataset_type="All"):
+		all_data_collection = self.dataset_collections["All"]["dataset_collection"]
+		all_data = self.mongo.db[all_data_collection].find({"project_id": project_id})
+
+		project = self.mongo.db.projects.find_one({'_id': ObjectId(project_id)})
+
+		files = []
 
 		zip_name = project_id + ".zip"
-
 		zip_file = zipfile.ZipFile(zip_name, 'w')
 		with zip_file:
-			for file in filePaths:
-				zip_file.write(file)
+
+			data_file_obj = self.project_dataset_map[project["type"]]
+			file_type = data_file_obj["file_type"]
+
+			for file in all_data:
+				prefix_id = file["src"].split("/")[0]
+
+				dir_path = os.path.join(u.get_app_root_dir(), 'Projects', project_id, 'Unzipped_data', dataset_type)
+				if (self.is_predefined_dataset(prefix_id)):
+					dir_path = self.get_predefined_dir_path(prefix_id)
+
+				file_path = os.path.join(dir_path, file["uploaded_file_name"])
+				file_base_path = basename(file_path)
+				zip_file.write(file_path, file_base_path)
+
+				item = {"file_name": file_base_path,
+						# "prefix_id": 
+						"gold": file["gold"],
+					}
+
+				if ("width" in file):
+					item["width"] = file["width"]
+
+				if ("height" in file):
+					item["height"] = file["height"]
+
+				files.append(item)
+
+
+			if (file_type == "txt"):
+				print ("txt file")
+
+				data_file_path = "labels.txt"
+				with open(data_file_path, 'w') as data_file:
+					data_writer = csv.writer(data_file, delimiter=',')
+					for item in files:
+						data_writer.writerow([item["file_name"], item["gold"]])
+
+				data_file.close()
+
+				zip_file.write(data_file_path, basename(data_file_path))
+
+			elif (file_type == "json"):
+				data_file_path = "data.json"
+				with open(data_file_path, "w") as data_file:
+					json.dump(files, data_file, indent=4)
+				data_file.close()
+
+				zip_file.write(data_file_path, basename(data_file_path))
+
+			else:
+				print ("No such file type", data_file_obj["file_type"])
+
+
 		zip_file.close()
 
 		return send_file(zip_name, attachment_filename = zip_name, as_attachment = True)
+
+
+	def get_sample_dataset(self, project_id):
+		# return self.get_dataset(project_id, "All")
+
+
+		project = self.mongo.db.projects.find_one({'_id': ObjectId(project_id)})
+
+		if (not project):
+			print ("Error no project ", project_id)
+			return make_response(dumps({"data": [], })) 
+
+
+		file_path = os.path.join(u.get_app_root_dir(), 'SampleDatasets', project["type"], "sample_dataset.zip")
+
+		print ("file_path ", file_path)
+
+
+		return send_file(file_path, attachment_filename = file_path, as_attachment = True)
+
 
 
 	def get_gold_all_data(self, project_id, page_in, exclude, match):
@@ -760,7 +850,9 @@ class Datasets():
 
 
 	def get_dataset_file(self, prefix_id, name, dataset_type):
-		if (prefix_id in self.predefined_datasets):
+		# if (prefix_id in self.predefined_datasets):
+
+		if (self.is_predefined_dataset(prefix_id)):
 			# aa = os.path.join(u.get_app_root_dir(), 'PredefinedDatasets', self.predefined_datasets[prefix_id]["name"], "All")
 			# print ("in predefined_datasets ", aa)
 			# print ("name ", name)
@@ -770,10 +862,24 @@ class Datasets():
 
 
 			# # return send_from_directory(aa, name)
+			path = self.get_predefined_dir_path(prefix_id)
 
-			return send_from_directory(os.path.join(u.get_app_root_dir(), 'PredefinedDatasets', self.predefined_datasets[prefix_id]["name"], "All"), name)
+			print ("prefix_id", prefix_id)
+			print ("path ", path)
+
+			print ("")
+
+			return send_from_directory(path, name)
 		else:
 			return send_from_directory(os.path.join(u.get_app_root_dir(), 'Projects', prefix_id, 'Unzipped_data', "All"), name)
+
+
+	def is_predefined_dataset(self, prefix_id):
+		return prefix_id in self.predefined_datasets
+
+
+	def get_predefined_dir_path(self, prefix_id):
+		return os.path.join(u.get_app_root_dir(), 'PredefinedDatasets', self.predefined_datasets[prefix_id]["name"], "All")
 
 
 	def get_media_gold_data(self, project_id, page_in, data_type):

@@ -578,6 +578,13 @@ def get_silver_validation_media_transcription(project_id, run_id, media_id):
 
 
 
+@app.route('/all-set/<project_id>')
+@login_required
+@require_role
+def get_all_set(project_id):
+    return Datasets.get_dataset(project_id)
+
+
 @app.route('/training-set/<project_id>')
 @login_required
 @require_role
@@ -597,6 +604,14 @@ def get_testing_set(project_id):
 @require_role
 def get_validation_set(project_id):
     return Datasets.get_validation_set(project_id)
+
+
+@app.route('/sample-dataset/<project_id>')
+@login_required
+@require_role
+def get_sample_dataset(project_id):
+    return Datasets.get_sample_dataset(project_id)
+
 
 
 @app.route('/public-datasets')
